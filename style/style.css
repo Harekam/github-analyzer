@@ -1,0 +1,11 @@
+.error-input {
+    position: relative;
+    top: -1rem;
+    left: 0rem;
+    font-size: 1rem;
+    color: red;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+}
