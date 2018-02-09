@@ -1,1 +1,1 @@
-# Blog CRUD APP
+# Github Analyzer
