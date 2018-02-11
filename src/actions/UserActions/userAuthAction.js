@@ -25,3 +25,11 @@ export function login(values, callback) {
     };
 
 }
+export function logout(callback) {
+    return (dispatch) => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('userDetails');
+        dispatch({ type: LOGGED_OUT });
+        return callback();
+    }
+}
