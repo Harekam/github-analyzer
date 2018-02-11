@@ -31,6 +31,7 @@ class UserLogin extends Component {
         );
     }
     onSubmit(values) {
+        console.log(this.props);
         this.props.login(values, (err) => {
             if (err) {
                 toastr.error('Login Error', 'Cannot Login! Please verify your username or password!');

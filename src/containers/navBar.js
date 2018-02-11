@@ -4,14 +4,25 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { logout } from '../actions';
 import { toastr } from 'react-redux-toastr';
+import { withRouter } from "react-router-dom";
 class NavBar extends Component {
     componentDidMount() {
         $(".button-collapse").sideNav();
     }
     onUserLoggedOut() {
         return (
-            <div>
-                <ul id="slide-out" className="side-nav">
+            <header>
+                <nav className="top-nav">
+                    <div className="container">
+                        <div className="nav-wrapper"><a className="page-title">Github Analyzer</a></div>
+                    </div>
+                </nav>
+                <div className="container">
+                    <a href="#" data-activates="slide-out" className="button-collapse top-nav full hide-on-large-only">
+                        <i className="material-icons">menu</i>
+                    </a>
+                </div>
+                <ul id="slide-out" className="side-nav fixed">
                     <li><div className="user-view">
                         <div className="background avatar-bg">
                         </div>
@@ -20,20 +31,29 @@ class NavBar extends Component {
                     </div></li>
                     <li><a href="#!">About</a></li>
                 </ul>
-                <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
-            </div>
+            </header>
         );
     }
     onLogout() {
         this.props.logout(() => {
             console.log(this.props);
+            $('.button-collapse').sideNav('hide');
             this.props.history.push('/login');
             toastr.success('Success', 'Logged out!');
         });
     }
     onUserAuthenticated(userDetails) {
         return (
-            <div>
+            <header>
+                <nav className="top-nav">
+                    <div className="container">
+                        <div className="nav-wrapper"><a className="page-title">Github Analyzer</a></div>
+                    </div>
+                </nav>
+                <div className="container"><a href="#" data-activates="nav-mobile" className="button-collapse top-nav full hide-on-large-only">
+                    <i className="material-icons">menu</i>
+                </a>
+                </div>
                 <ul id="slide-out" className="side-nav">
                     <li><div className="user-view">
                         <div className="background avatar-bg">
@@ -44,8 +64,7 @@ class NavBar extends Component {
                     <li><a href="javascript:void(0);">About</a></li>
                     <li><a href="javascript:void(0);" onClick={this.onLogout.bind(this)}>Logout</a></li>
                 </ul>
-                <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
-            </div>);
+            </header>);
     }
     render() {
         const { userAuth } = this.props;
@@ -59,4 +78,4 @@ class NavBar extends Component {
 function mapStateToProps({ userAuth }) {
     return { userAuth };
 }
-export default connect(mapStateToProps, { logout })(NavBar)
+export default withRouter(connect(mapStateToProps, { logout })(NavBar));

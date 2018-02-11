@@ -15,15 +15,23 @@ ReactDOM.render(
     <div>
       <BrowserRouter>
         <div>
-          <NavBar />
-          <Switch>
-            <Route path="/login" component={requireNoAuth(UserLogin)} />
-            <Route path="/" component={requireAuth(Home)} />
-          </Switch>
+         <NavBar />
+          <main>
+            <div className="container">
+              <div className="row">
+                <div className="col s12 m8 l9">
+                  <Switch>
+                    <Route path="/login" component={requireNoAuth(UserLogin)} />
+                    <Route path="/" component={requireAuth(Home)} />
+                  </Switch>
+                </div>
+              </div>
+            </div>
+          </main>
         </div>
       </BrowserRouter>
       <ReduxToastr
         progressBar />
     </div>
   </Provider>
-  , document.querySelector('.container'));
+  , document.querySelector('#body'));
