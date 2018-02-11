@@ -16,16 +16,18 @@ class UserLogin extends Component {
         const { meta: { touched, error } } = field;
         const className = `input-field col s6 ${touched && error ? 'has-danger' : ''}`
         return (
-            <div className={className}>
-                <label>{field.label}</label>
-                <input
-                    className="validate"
-                    type={field.type}
-                    {...field.input}
-                    required
-                />
-                <div className="error-input">
-                    {touched ? error : ''}
+            <div className="row">
+                <div className={className}>
+                    <label>{field.label}</label>
+                    <input
+                        className="validate"
+                        type={field.type}
+                        {...field.input}
+                        required
+                    />
+                    <div className="error-input">
+                        {touched ? error : ''}
+                    </div>
                 </div>
             </div>
         );
@@ -44,7 +46,7 @@ class UserLogin extends Component {
     render() {
         const { handleSubmit, userAuth } = this.props;
         const { isLoggingIn } = userAuth;
-        const btnClasses = `btn btn-primary ${isLoggingIn ? 'disabled' : ''}`;
+        const btnClasses = `btn btn-theme-color waves-effect waves-light ${isLoggingIn ? 'disabled' : ''}`;
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
@@ -59,7 +61,11 @@ class UserLogin extends Component {
                     type="password"
                     component={this.renderField}
                 />
-                <button type="submit" className={btnClasses}>{isLoggingIn ? 'Processing...' : 'Submit'}</button>
+                <div className="row">
+                    <button type="submit" className={btnClasses}>
+                        {isLoggingIn ? 'Logging in...' : 'Submit'}
+                    </button>
+                </div>
             </form>
         );
     }

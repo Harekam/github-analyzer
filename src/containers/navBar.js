@@ -29,7 +29,7 @@ class NavBar extends Component {
                         <a href="#!user"><img className="circle" src="../../images/github_logo.png" /></a>
                         <a href="#!name"><span className="white-text name">Not Logged In</span></a>
                     </div></li>
-                    <li><a href="#!">About</a></li>
+                    <li><a href="javascript:void(0);">About</a></li>
                 </ul>
             </header>
         );
@@ -50,9 +50,10 @@ class NavBar extends Component {
                         <div className="nav-wrapper"><a className="page-title">Github Analyzer</a></div>
                     </div>
                 </nav>
-                <div className="container"><a href="#" data-activates="nav-mobile" className="button-collapse top-nav full hide-on-large-only">
-                    <i className="material-icons">menu</i>
-                </a>
+                <div className="container">
+                    <a href="#" data-activates="slide-out" className="button-collapse top-nav full hide-on-large-only">
+                        <i className="material-icons">menu</i>
+                    </a>
                 </div>
                 <ul id="slide-out" className="side-nav">
                     <li><div className="user-view">
