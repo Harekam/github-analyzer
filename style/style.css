@@ -9,3 +9,7 @@
     -o-transform: translateY(0%);
     transform: translateY(0%);
 }
+
+.avatar-bg{
+    background-color: rebeccapurple;
+}

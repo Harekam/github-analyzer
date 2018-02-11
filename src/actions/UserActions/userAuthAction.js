@@ -16,6 +16,7 @@ export function login(values, callback) {
         request.then(({ data }) => {
             dispatch({ type: LOGGED_IN, payload: data });
             localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('userDetails', JSON.stringify(data));
             return callback();
         }).catch((reason) => {
             dispatch({ type: LOGIN_ERROR, payload: reason });

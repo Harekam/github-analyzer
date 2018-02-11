@@ -14,9 +14,10 @@ const store = createStore(reducers, composeWithDevTools(
 ));
 
 const user = localStorage.getItem('accessToken');
+const userDetails = localStorage.getItem('userDetails');
 
 if (user) {
-    store.dispatch({ type: ACTION_TYPES.LOGGED_IN });
+    store.dispatch({ type: ACTION_TYPES.LOGGED_IN, payload: JSON.parse(userDetails) });
 }
 
 export default store;

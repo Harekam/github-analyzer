@@ -41,7 +41,9 @@ class UserLogin extends Component {
         });
     }
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, userAuth } = this.props;
+        const { isLoggingIn } = userAuth;
+        const btnClasses = `btn btn-primary ${isLoggingIn ? 'disabled' : ''}`;
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field
@@ -56,7 +58,7 @@ class UserLogin extends Component {
                     type="password"
                     component={this.renderField}
                 />
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className={btnClasses}>{isLoggingIn ? 'Processing...' : 'Submit'}</button>
             </form>
         );
     }
@@ -80,4 +82,4 @@ export default reduxForm({
     form: 'LoginForm'
 })(
     connect(mapStateToProps, { login })(UserLogin)
-);
+    );
