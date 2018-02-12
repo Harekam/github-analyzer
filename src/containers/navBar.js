@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
-import { logout } from '../actions';
+import { Link, withRouter } from 'react-router-dom';
+import { logout, titleUpdate } from '../actions';
 import { toastr } from 'react-redux-toastr';
-import { withRouter } from "react-router-dom";
+import { DEFAULT_TITLE } from '../configs';
+import { closeSideNavIfOpen } from '../utils/util';
 class NavBar extends Component {
     componentDidMount() {
         $(".button-collapse").sideNav();
@@ -14,7 +15,7 @@ class NavBar extends Component {
             <header>
                 <nav className="top-nav">
                     <div className="container">
-                        <div className="nav-wrapper"><a className="page-title">Github Analyzer</a></div>
+                        <div className="nav-wrapper"><a className="page-title">{this.props.navDetails.title}</a></div>
                     </div>
                 </nav>
                 <div className="container">
@@ -26,18 +27,22 @@ class NavBar extends Component {
                     <li><div className="user-view">
                         <div className="background avatar-bg">
                         </div>
-                        <a href="#!user"><img className="circle" src="../../images/github_logo.png" /></a>
-                        <a href="#!name"><span className="white-text name">Not Logged In</span></a>
+                        <img className="circle" src="../../images/github_logo.png" />
+                        <span className="white-text name">Not Logged In</span>
                     </div></li>
-                    <li><a href="javascript:void(0);">About</a></li>
+                    <li><Link to="/login" onClick={this.onTitleUpdate.bind(this, DEFAULT_TITLE)}>Login</Link></li>
+                    <li><Link to="/about" onClick={this.onTitleUpdate.bind(this, 'About')}>About</Link></li>
                 </ul>
             </header>
         );
     }
+    onTitleUpdate(title) {
+        closeSideNavIfOpen();
+        this.props.titleUpdate({ title });
+    }
     onLogout() {
         this.props.logout(() => {
-            console.log(this.props);
-            $('.button-collapse').sideNav('hide');
+            closeSideNavIfOpen();
             this.props.history.push('/login');
             toastr.success('Success', 'Logged out!');
         });
@@ -47,7 +52,7 @@ class NavBar extends Component {
             <header>
                 <nav className="top-nav">
                     <div className="container">
-                        <div className="nav-wrapper"><a className="page-title">Github Analyzer</a></div>
+                        <div className="nav-wrapper"><a className="page-title">{this.props.navDetails.title}</a></div>
                     </div>
                 </nav>
                 <div className="container">
@@ -55,15 +60,16 @@ class NavBar extends Component {
                         <i className="material-icons">menu</i>
                     </a>
                 </div>
-                <ul id="slide-out" className="side-nav">
+                <ul id="slide-out" className="side-nav fixed">
                     <li><div className="user-view">
                         <div className="background avatar-bg">
                         </div>
-                        <a href="#!user"><img className="circle" src={userDetails.avatar_url} /></a>
-                        <a href="#!name"><span className="white-text name">{userDetails.name}</span></a>
+                        <a href={userDetails.html_url} target="_blank"><img className="circle" src={userDetails.avatar_url} /></a>
+                        <a href={userDetails.html_url} target="_blank"><span className="white-text name">{userDetails.name}</span></a>
                     </div></li>
-                    <li><a href="javascript:void(0);">About</a></li>
+                    <li><Link to="/" onClick={this.onTitleUpdate.bind(this, 'Dashboard')}>Dashboard</Link></li>
                     <li><a href="javascript:void(0);" onClick={this.onLogout.bind(this)}>Logout</a></li>
+                    <li><Link to="/about" onClick={this.onTitleUpdate.bind(this, 'About')}>About</Link></li>
                 </ul>
             </header>);
     }
@@ -76,7 +82,7 @@ class NavBar extends Component {
 
     }
 }
-function mapStateToProps({ userAuth }) {
-    return { userAuth };
+function mapStateToProps({ userAuth, navDetails }) {
+    return { userAuth, navDetails };
 }
-export default withRouter(connect(mapStateToProps, { logout })(NavBar));
+export default withRouter(connect(mapStateToProps, { logout, titleUpdate })(NavBar));

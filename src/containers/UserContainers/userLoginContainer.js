@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions';
+import { login, titleUpdate } from '../../actions';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
@@ -40,6 +40,7 @@ class UserLogin extends Component {
                 return;
             }
             this.props.history.push('/');
+            this.props.titleUpdate({ title: 'Dashboard' });
             toastr.success('Success', 'Logged in!');
         });
     }
@@ -88,5 +89,5 @@ export default reduxForm({
     validate,
     form: 'LoginForm'
 })(
-    connect(mapStateToProps, { login })(UserLogin)
-    );
+    connect(mapStateToProps, { login, titleUpdate })(UserLogin)
+);
